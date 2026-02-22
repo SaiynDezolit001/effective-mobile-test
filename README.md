@@ -1,52 +1,37 @@
 # Effective Mobile DevOps Test
 
 ## Overview
+This project demonstrates a minimal backend HTTP service written in Python running behind an Nginx reverse proxy using Docker Compose.
 
-This project demonstrates a minimal backend HTTP service written in Python
-running behind an Nginx reverse proxy using Docker Compose.
-
-The backend service is accessible only inside the Docker network,
-while Nginx exposes port 80 to the host.
+The backend service is accessible only inside the Docker network, while Nginx exposes port **80** to the host.
 
 ---
 
 ## Architecture
 
-
+```text
 Client
-|
-v
+  |
+  v
 Nginx (port 80)
-|
-v
+  |
+  v
 Backend (port 8080, internal Docker network only)
+Nginx acts as a reverse proxy.
 
+Backend is not exposed to the host.
 
-- Nginx acts as a reverse proxy.
-- Backend is NOT exposed to the host.
-- Communication happens via Docker bridge network.
-
----
-
-## Project Structure
-
-
+Communication happens via a Docker bridge network (service discovery via Docker DNS).
 .
 ├── backend/
-│ ├── Dockerfile
-│ └── app.py
+│   ├── Dockerfile
+│   └── app.py
 ├── nginx/
-│ └── nginx.conf
+│   └── nginx.conf
 ├── docker-compose.yml
 ├── .gitignore
 └── README.md
-
-
----
-
-## How to Run
-
-```bash
+How to Run
 docker compose up -d --build
 How to Verify
 curl http://localhost
@@ -58,7 +43,7 @@ Technical Notes
 
 Official Docker images are used.
 
-Backend runs as non-root user.
+Backend runs as a non-root user.
 
 Docker healthcheck is implemented.
 
