@@ -46,3 +46,9 @@ Client --> Nginx (port 80) --> Backend (port 8080, internal Docker network)
 - Backend port 8080 is not published externally.
 - Backend runs as a non-root user.
 - Docker healthcheck is implemented.
+
+## Quick Check
+
+```bash
+curl -i http://localhost
+```
